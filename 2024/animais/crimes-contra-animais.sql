@@ -24,6 +24,7 @@ SELECT oco.numero_ocorrencia,
                FROM db_bisp_reds_reporting.tb_ocorrencia AS oco
                WHERE oco.data_hora_fato >= '2020-01-01 00:00:00.000'
                AND oco.data_hora_fato < '2025-01-01 00:00:00.000'
+               AND oco.data_hora_inclusao <= '2025-03-17 23:59:59.000'
                AND oco.ocorrencia_uf = 'MG'
                AND oco.ind_estado IN ('F', 'R')
                AND oco.natureza_codigo IN ('U33024', 'D08064', 'D08640', 'M31015', 'M31527', 'M31014', 'M31016', 'M30032')
