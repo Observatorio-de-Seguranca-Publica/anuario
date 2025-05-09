@@ -5,8 +5,6 @@ from impala.dbapi import connect
 import pyproj
 import requests
 import tempfile
-import os
-import itertools
 
 # Caminho do arquivo de credenciais da BISP
 caminho_cred = 'C:\\Users\\x20081782\\OneDrive - CAMG\\Área de Trabalho\\Paineis\\Credenciamento Python.txt'
