@@ -157,7 +157,9 @@ df[['Latitude SIRGAS', 'Longitude SIRGAS']] = df.apply(
 )
 # Função para categorizar a faixa etária
 def faixa_etaria(valor_idade_aparente):
-    if valor_idade_aparente <= 11:
+    if pd.isnull(valor_idade_aparente) or valor_idade_aparente < 0:
+        return 'NÃO INFORMADO'
+    elif valor_idade_aparente <= 11:
         return '0 a 11 anos'
     elif valor_idade_aparente <= 17:
         return '12 a 17 anos'
@@ -168,11 +170,14 @@ def faixa_etaria(valor_idade_aparente):
     elif valor_idade_aparente <= 34:
         return '30 a 34 anos'
     elif valor_idade_aparente <= 64:
-        return '34 a 64 anos'
-    elif valor_idade_aparente >= 65:
-        return '65 anos ou mais'
+        return '35 a 64 anos'
     else:
-        return 'NÃO INFORMADO'
+        return '65 anos ou mais'
+    
+    
+# Criando nova coluna sem substituir
+df['Faixa Etária'] = df['valor_idade_aparente'].apply(faixa_etaria)
+
 # Exibe as primeiras linhas do DataFrame após adicionar as novas colunas
 df.head()
 
