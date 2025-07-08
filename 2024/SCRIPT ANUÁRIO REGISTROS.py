@@ -6,6 +6,7 @@ import pyproj
 import requests
 import tempfile
 
+
 # Caminho do arquivo de credenciais da BISP
 caminho_cred = 'C:\\Users\\x20081782\\OneDrive - CAMG\\Área de Trabalho\\Paineis\\Credenciamento Python.txt'
 # URL do arquivo no GitHub
@@ -14,8 +15,7 @@ url = 'https://github.com/barbaraoliveira-hub/SAD_IBGE96/raw/main/SAD96_003.GSB'
 caminho_local = 'C:\\Users\\x20081782\\Downloads\\Grupo_Local_Imediato (1).xlsx'
 # Caminho do arquivo de Grupo Local Instrumento
 caminho_meio = 'C:\\Users\\x20081782\\Downloads\\instrumento.xlsx'
-# Caminho da pasta onde os arquivos serão salvos
-caminho_pasta = 'C:\\Users\\x20081782\\Downloads'
+
 
 ## PARTE 1 - EXTRAÇÃO DA BASE DE DADOS DA BISP
 
@@ -31,7 +31,7 @@ def get_credentials(file_path):
 # Função para conectar ao banco de dados
 def get_conn_and_cursor(db='db_bisp_reds_reporting', credentials_file = caminho_cred):
     credentials = get_credentials(credentials_file)
-    conn = connect(host='10.100.62.6', port=21051, use_ssl=True, auth_mechanism="PLAIN",
+    conn = connect(host='10.100.62.20', port=21051, use_ssl=True, auth_mechanism="PLAIN",
                    user=credentials['username'], password=credentials['password'], database=db)
     cursor = conn.cursor()
     return conn, cursor
@@ -108,7 +108,7 @@ try:
                AND oco.ocorrencia_uf = 'MG'
                AND oco.ind_estado IN ('F', 'R')
                AND oco.nome_tipo_relatorio IN ('POLICIAL','REFAP')
-               AND ((oco.natureza_descricao in ('ROUBO') AND  oco.natureza_consumado IN ('CONSUMADO')) 
+               AND ((oco.natureza_codigo in ('C01157') AND  oco.natureza_consumado IN ('CONSUMADO')) 
                )
                '''
     
@@ -287,7 +287,7 @@ df = df[nova_ordem]
 
 # Salva a base de dados completa em xlsx
 
-df.to_excel("C:\\Users\\x20081782\\Downloads\\baseregistrosanuarioroubo.xlsx", index=False)
+df.to_excel("C:\\Users\\x20081782\\Downloads\\Roubo_2020 a 2024.xlsx", index=False)
 
 
 print('Pronto!')
