@@ -19,7 +19,7 @@ def get_credentials(file_path):
 # Função para conectar ao banco de dados
 def get_conn_and_cursor(db='db_bisp_reds_reporting', credentials_file='C:\\Users\\x20081782\\OneDrive - CAMG\\Área de Trabalho\\Paineis\\Credenciamento Python.txt'):
     credentials = get_credentials(credentials_file)
-    conn = connect(host='10.100.62.6', port=21051, use_ssl=True, auth_mechanism="PLAIN",
+    conn = connect(host='10.100.62.20', port=21051, use_ssl=True, auth_mechanism="PLAIN",
                    user=credentials['username'], password=credentials['password'], database=db)
     cursor = conn.cursor()
     return conn, cursor
@@ -110,8 +110,8 @@ try:
                AND oco.ocorrencia_uf = 'MG'
                AND oco.ind_estado IN ('F', 'R')
                AND oco.nome_tipo_relatorio IN ('POLICIAL','REFAP')
-               AND env.envolvimento_descricao IN ('VITIMA','VITIMA - OUTROS','VITIMA DE ACAO CRIMINAL / CIVEL','VITIMA E PASSAGEIRO (TRANSITO)','VITIMA E PEDESTRE (TRANSITO)','VITIMA E PROPRIETARIO/FUNCIONARIO ESTABELECECIM','CONDUTOR DE VEICULO E VITIMA','AUTOR','COAUTOR','SUSPEITO')
-               AND env.natureza_ocorrencia_descricao IN ('ROUBO')
+               AND env.envolvimento_codigo IN ('1300','1301','1302','1303','1304','1305','1399', '0100', '1100', '0200')
+               AND env.natureza_ocorrencia_codigo IN ('C01157')
                AND env.ind_consumado = 'S'
 
 """
@@ -182,4 +182,4 @@ df['Faixa Etária'] = df['valor_idade_aparente'].apply(faixa_etaria)
 df.head()
 
 # Exporta a base no computador no modelo desejado 
-df.to_excel("C:\\Users\\x20081782\\Downloads\\envolvidosroubo.xlsx", index=False)
+df.to_excel("C:\\Users\\x20081782\\Downloads\\Vitimas_roubo.xlsx", index=False)
